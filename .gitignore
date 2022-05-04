@@ -2,6 +2,7 @@ node_modules
 
 #hardhat files
 cache
+typechain
 artifacts
 frontend/src/hardhat
 coverage.json
