@@ -1,0 +1,14 @@
+node_modules
+
+#hardhat files
+cache
+artifacts
+frontend/src/hardhat
+coverage.json
+coverage
+frontend
+deployments
+.solhint.json
+deployments
+src
+out
