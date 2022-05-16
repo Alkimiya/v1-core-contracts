@@ -234,11 +234,7 @@ contract SilicaAccount is ISilicaAccount, Initializable, ReentrancyGuard {
             closeCompletedContracts(nextUpdateDay);
 
             if (getAvailableBalance() < getTotalAmountOwedNextUpdate()) {
-                defaultAllRunningContracts(
-                    nextUpdateDay,
-                    networkHashrate,
-                    networkReward
-                );
+                defaultAllRunningContracts(nextUpdateDay);
             } else {
                 progressRunningContracts(networkHashrate, networkReward);
             }
@@ -437,19 +433,13 @@ contract SilicaAccount is ISilicaAccount, Initializable, ReentrancyGuard {
      * @dev Set all the running contracts under this account to default
      */
     function defaultAllRunningContracts(
-        uint32 nextUpdateDay,
-        uint256 networkHashrate,
-        uint256 networkReward
+        uint32 nextUpdateDay
     ) private {
         for (int256 i = 0; i < int256(runningContractSet.count()); i++) {
             ISilica silica = ISilica(
                 payable(runningContractSet.keyAtIndex(uint256(i)))
             );
-            silica.defaultContract(
-                nextUpdateDay,
-                networkHashrate,
-                networkReward
-            );
+            silica.defaultContract(nextUpdateDay);
             runningContractSet.remove(address(silica));
             defaultedContractSet.insert(address(silica));
             i--;

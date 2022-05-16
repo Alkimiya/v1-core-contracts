@@ -401,14 +401,7 @@ contract SilicaAvax is ERC20, Initializable, ISilicaAvax {
      * @notice Override defaultContract from ISilicaFunctions
      */
     function defaultContract(
-        uint32 day,
-        uint256 _currentSupply,
-        uint256 _supplyCap,
-        uint256 _maxStakingDuration,
-        uint256 _maxConsumptionRate,
-        uint256 _minConsumptionRate,
-        uint256 _mintingPeriod,
-        uint256 _scale
+        uint32 day
     ) external override onlySilicaAccount {
         require(status == Status.Running, "Cannot default non-active contract");
         status = Status.Defaulted;

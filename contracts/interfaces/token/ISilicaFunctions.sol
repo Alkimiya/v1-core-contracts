@@ -18,13 +18,9 @@ interface ISilicaFunctions {
     /**
      * @notice An external call to set the Silica contract default
      * @param day the reference day from Oracle
-     * @param _networkHashrate the average hashrate on the blockchain from Oracle
-     * @param _networkReward daily total rewards from Oracle
      */
     function defaultContract(
-        uint32 day,
-        uint256 _networkHashrate,
-        uint256 _networkReward
+        uint32 day
     ) external;
 
     /**

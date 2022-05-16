@@ -390,9 +390,7 @@ contract Silica is ERC20, Initializable, ISilica {
      * @notice Override defaultContract from ISilicaFunctions
      */
     function defaultContract(
-        uint32 day,
-        uint256 _networkHashrate,
-        uint256 _networkReward
+        uint32 day
     ) external override onlySilicaAccount {
         require(status == Status.Running, "Cannot default non-active contract");
         status = Status.Defaulted;
