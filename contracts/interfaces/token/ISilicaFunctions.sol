@@ -1,4 +1,4 @@
-//SPDX-License-Identifier: Unlicense
+// SPDX-License-Identifier: MIT
 pragma solidity >=0.8.0;
 
 /**
@@ -18,9 +18,13 @@ interface ISilicaFunctions {
     /**
      * @notice An external call to set the Silica contract default
      * @param day the reference day from Oracle
+     * @param _networkHashrate the average hashrate on the blockchain from Oracle
+     * @param _networkReward daily total rewards from Oracle
      */
     function defaultContract(
-        uint32 day
+        uint32 day,
+        uint256 _networkHashrate,
+        uint256 _networkReward
     ) external;
 
     /**

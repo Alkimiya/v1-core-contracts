@@ -1,4 +1,4 @@
-//SPDX-License-Identifier: Unlicense
+// SPDX-License-Identifier: MIT
 pragma solidity >=0.8.0;
 
 import "./interfaces/token/ISilica.sol";
@@ -390,7 +390,9 @@ contract Silica is ERC20, Initializable, ISilica {
      * @notice Override defaultContract from ISilicaFunctions
      */
     function defaultContract(
-        uint32 day
+        uint32 day,
+        uint256 _networkHashrate,
+        uint256 _networkReward
     ) external override onlySilicaAccount {
         require(status == Status.Running, "Cannot default non-active contract");
         status = Status.Defaulted;

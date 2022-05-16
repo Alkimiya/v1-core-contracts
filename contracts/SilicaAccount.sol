@@ -1,4 +1,4 @@
-//SPDX-License-Identifier: Unlicense
+// SPDX-License-Identifier: MIT
 pragma solidity >=0.8.0;
 
 /**
@@ -234,7 +234,11 @@ contract SilicaAccount is ISilicaAccount, Initializable, ReentrancyGuard {
             closeCompletedContracts(nextUpdateDay);
 
             if (getAvailableBalance() < getTotalAmountOwedNextUpdate()) {
-                defaultAllRunningContracts(nextUpdateDay);
+                defaultAllRunningContracts(
+                    nextUpdateDay,
+                    networkHashrate,
+                    networkReward
+                );
             } else {
                 progressRunningContracts(networkHashrate, networkReward);
             }
@@ -433,13 +437,19 @@ contract SilicaAccount is ISilicaAccount, Initializable, ReentrancyGuard {
      * @dev Set all the running contracts under this account to default
      */
     function defaultAllRunningContracts(
-        uint32 nextUpdateDay
+        uint32 nextUpdateDay,
+        uint256 networkHashrate,
+        uint256 networkReward
     ) private {
         for (int256 i = 0; i < int256(runningContractSet.count()); i++) {
             ISilica silica = ISilica(
                 payable(runningContractSet.keyAtIndex(uint256(i)))
             );
-            silica.defaultContract(nextUpdateDay);
+            silica.defaultContract(
+                nextUpdateDay,
+                networkHashrate,
+                networkReward
+            );
             runningContractSet.remove(address(silica));
             defaultedContractSet.insert(address(silica));
             i--;

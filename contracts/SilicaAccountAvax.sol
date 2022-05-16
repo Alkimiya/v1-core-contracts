@@ -1,4 +1,4 @@
-//SPDX-License-Identifier: Unlicense
+// SPDX-License-Identifier: MIT
 pragma solidity >=0.8.0;
 
 /**
@@ -241,7 +241,16 @@ contract SilicaAccountAvax is ISilicaAccount, Initializable, ReentrancyGuard {
             closeCompletedContracts(nextUpdateDay);
 
             if (getAvailableBalance() < getTotalAmountOwedNextUpdate()) {
-                defaultAllRunningContracts(nextUpdateDay);
+                defaultAllRunningContracts(
+                    nextUpdateDay,
+                    currentSupply,
+                    supplyCap,
+                    maxStakingDuration,
+                    maxConsumptionRate,
+                    minConsumptionRate,
+                    mintingPeriod,
+                    scale
+                );
             } else {
                 progressRunningContracts(
                     nextUpdateDay,
@@ -425,13 +434,29 @@ contract SilicaAccountAvax is ISilicaAccount, Initializable, ReentrancyGuard {
      * @dev Set all the running contracts under this account to default
      */
     function defaultAllRunningContracts(
-        uint32 nextUpdateDay
+        uint32 nextUpdateDay,
+        uint256 currentSupply,
+        uint256 supplyCap,
+        uint256 maxStakingDuration,
+        uint256 maxConsumptionRate,
+        uint256 minConsumptionRate,
+        uint256 mintingPeriod,
+        uint256 scale
     ) private {
         for (int256 i = 0; i < int256(runningContractSet.count()); i++) {
             ISilicaAvax silicaAvax = ISilicaAvax(
                 payable(runningContractSet.keyAtIndex(uint256(i)))
             );
-            silicaAvax.defaultContract(nextUpdateDay);
+            silicaAvax.defaultContract(
+                nextUpdateDay,
+                currentSupply,
+                supplyCap,
+                maxStakingDuration,
+                maxConsumptionRate,
+                minConsumptionRate,
+                mintingPeriod,
+                scale
+            );
             runningContractSet.remove(address(silicaAvax));
             defaultedContractSet.insert(address(silicaAvax));
             i--;
