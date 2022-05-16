@@ -21,3 +21,7 @@ The following assumes the use of `node@>=10`.
 ## Run Localhost node
 
 `npx hardhat node --watch`
+
+## License
+
+Alkimiya V1 Core Contracts is released under the [MIT License](LICENSE).
