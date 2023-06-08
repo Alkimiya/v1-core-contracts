@@ -1,7 +1,7 @@
 {
   "name": "hardhat-project",
   "dependencies": {
-    "@openzeppelin/contracts": "^4.6.0"
+    "@openzeppelin/contracts": "^4.9.1"
   },
   "devDependencies": {
     "@nomiclabs/hardhat-ethers": "npm:hardhat-deploy-ethers@^0.3.0-beta.13",
